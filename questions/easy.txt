@@ -1,0 +1,33 @@
+Qual è la capitale della Svizzera?|Berna|1
+Triangolo equilatero ABC, che angoli forma la mediana in A? (scrivere solo il numero in gradi)|30|1
+Il colore predominante della bandiera della Turchia|rosso|1
+Qual è la capitale della Spagna?|Madrid|1  
+In che continente si trova l'Argentina?|Sud America|1  
+Qual è il fiume più lungo del mondo?|Nilo|1  
+In quale nazione si trova il monte Fuji?|Giappone|1  
+Quale oceano bagna le coste del Portogallo?|Oceano Atlantico|1
+Quanto fa 7 x 8?|56|1  
+Qual è la radice quadrata di 64?|8|1  
+Qual è l’area di un quadrato di lato 5 cm?|25|1  
+Quanto vale π approssimato a due cifre decimali?|3.14|1  
+Quanto fa 100 diviso 4?|25|1
+In che anno è iniziata la Seconda Guerra Mondiale?|1939|1  
+Chi era il primo imperatore romano?|Augusto|1  
+Quale civiltà ha costruito le piramidi?|Egizia|1  
+Chi ha scoperto l'America?|Cristoforo Colombo|1  
+In che anno è caduto l'Impero Romano d'Occidente?|476|1
+Qual è il simbolo chimico dell'acqua?|H2O|1  
+Qual è il numero atomico dell’ossigeno?|8|1  
+Di che colore è il litmus in presenza di acido?|Rosso|1  
+Quale pianeta è noto come il pianeta rosso?|Marte|1  
+Quale gas respiriamo per vivere?|Ossigeno|1
+Quanti giocatori ha una squadra di calcio in campo?|11|1  
+In quale sport si usa la racchetta e la pallina gialla?|Tennis|1  
+Chi ha vinto il Mondiale di calcio 2006?|Italia|1  
+In quale sport si segnano “canestri”?|Basket|1  
+Quante ruote ha una bicicletta?|2|1
+Qual è la lingua ufficiale del Brasile?|Portoghese|1  
+Chi ha scritto “La Divina Commedia”?|Dante Alighieri|1  
+Qual è l'unità di misura della corrente elettrica?|Ampere|1  
+Che colore si ottiene mescolando blu e giallo?|Verde|1  
+In quale città si trova il Colosseo?|Roma|1
