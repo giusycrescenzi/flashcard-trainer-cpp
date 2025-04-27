@@ -14,7 +14,7 @@ typedef unsigned short int level;
 class Card {
     public:
         Card();
-        static Card LoadCard(std::string filename);
+        void LoadCard(std::string filename);
 
         // getters, because question are in .txt files
         std::string getQuestion() const;

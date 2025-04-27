@@ -1,10 +1,10 @@
 #include "Card.h"
 
-Card Card::LoadCard(std::string filename) {
+void Card::LoadCard(std::string filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Error opening file: " << filename << std::endl;
-        return Card();
+        return;
     }
     std::string line, q, a, c, d_intcast;
     Card card;
@@ -22,7 +22,6 @@ Card Card::LoadCard(std::string filename) {
         }
     }
     file.close();
-    return card;
 }
 
 std::string Card::getQuestion() const {

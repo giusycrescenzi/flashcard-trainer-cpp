@@ -1,7 +1,44 @@
 #include "Deck.h"
 
-Deck Deck::LoadDeck(std::string filename) {
-    for (int i = 0; i < size; i++) {
-        Card::LoadCard(filename);
+void Deck::SetSize(size_t s) {
+    size = s;
+}
+void Deck::SetCurrent (size_t c) {
+    currentCardIndex = c;
+}
+size_t Deck::GetSize() const {
+    return size;
+}
+size_t Deck::GetCurrent() const {
+    return currentCardIndex;
+}
+void Deck::LoadDeck(int easy_questions, int medium_questions, int hard_questions) {
+    Deck deck;
+    deck.size = easy_questions+medium_questions+hard_questions;
+    deck.currentCardIndex = 0;
+    for (size_t i = 0; i < size; i++) {
+        Card card;
+        if (i < easy_questions) {
+            card.LoadCard("easy.txt");
+        }
+        else if (i < easy_questions+medium_questions) {
+            card.LoadCard("medium.txt");
+        }
+        else {
+            card.LoadCard("hard.txt");
+        }
+        cards[i] = card;
     }
+}
+void Deck::LoadBasicDeck() {
+    Deck::LoadDeck(4, 3, 2);
+}
+void Deck::LoadNoobDeck() {
+    Deck::LoadDeck(9, 0, 0);
+}
+void Deck::LoadProDeck() {
+    Deck::LoadDeck(0, 9, 0);
+}
+void Deck::LoadGeniusDeck() {
+    Deck::LoadDeck(0,0,9);
 }
