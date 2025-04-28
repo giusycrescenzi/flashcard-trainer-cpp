@@ -14,14 +14,20 @@ class GameManager {
         void SetScore(int n, int s);
     private:
         int players;
-        int* Score;
+        int * Score;
         std::vector<std::string> names;
+        std::vector<Deck> decks;
+
+        bool AllocateScore (int * ptr, const int n);
         int GetNumPlayers() const;
         std::string GameManager::GetPlayerName(int n,const std::string& name) const;
         int GetScore(int n, int s) const;
+        Deck GetDeck(int n) const;
+
         
 
         // all commands will be private, calls will be handled at run time by run method
+        bool HandleCommand(const std::string& answer, Deck deck) const;
         void DisplayHelp() const;
         void DisplayScore() const;
         void SkipQuestion() const;
