@@ -14,11 +14,10 @@ class GameManager {
         void SetScore(int n, int s);
     private:
         int players;
-        int * Score;
+        std::vector<int> Score;
         std::vector<std::string> names;
         std::vector<Deck> decks;
 
-        bool AllocateScore (int * ptr, const int n);
         int GetNumPlayers() const;
         std::string GameManager::GetPlayerName(int n,const std::string& name) const;
         int GetScore(int n, int s) const;
@@ -30,15 +29,16 @@ class GameManager {
         // commands give different return values
         // 0 = command executed
         // 1 = quit
-        // -1 = invalid command
         // 2 = add a point (the answer was right)
         // 3 = restart game
         // 4 = skip question
-        int HandleCommand(const std::string& answer, Card currentCard) const;
+        int HandleCommand(const std::string& answer, Card currentCard);
         void DisplayHelp() const;
         void DisplayScore() const;
         void SkipQuestion() const;
-        void RestartGame(int n);
+        void RestartGame();
+        int FindWinner(const std::vector<int>& scores) const;
+        void DisplayAbout() const;
 };
 
 #endif //GAMEMANAGER_H

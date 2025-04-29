@@ -1,11 +1,5 @@
 #include "GameManager.h"
 
-bool GameManager::AllocateScore (int * ptr, const int n) {
-    ptr = (int*)malloc(n * sizeof(int));
-    if (ptr == NULL)
-        return false;
-    return true;
-}
 void GameManager::SetNumPlayers(int p) {
     players = p;
 }
@@ -38,13 +32,13 @@ void GameManager::run() {
     } while (players < 1);
     if (players == 1) {
         SetPlayerName(0, "You");
-        AllocateScore(Score, 1);
+        SetScore(0, 0);
         std::cout << "There we go, best of luck pal" << std::endl;
     }
     else {
         std::cout << "game for " << players << " initialized, good luck";
-        AllocateScore(Score, players);
         for (int i = 0; i < players; i++) {
+            SetScore(i, 0);
             std::string name;
             std::cout << "player number " << i+1 << " insert your name";
             std::getline (std::cin, name);
@@ -114,29 +108,76 @@ void GameManager::run() {
     }
     // now the gameflow
     while (running) {
+        // check if the player has finished his deck
         int commandOutput = 0;
         for (int i = 1; i <= players; i++) {
+            // check if the player has finished his deck
+            if (decks[i-1].GetCurrent() >= decks[i-1].GetSize()) {
+                std::cout << "there are no more cards" << std::endl;
+                running = false;
+                break;
+            }
+            //player turn
             std::cout << "player " << i << " turn" << std::endl;
-            std::cout << decks[i-1].DrawCard().getQuestion() << std::endl;
-            std::string answer;
-            std::getline(std::cin, answer);
-            commandOutput = HandleCommand(answer, decks[i-1].DrawCard());
+            question:{
+                std::cout << decks[i-1].DrawCard(decks[i-1].GetCurrent()).getQuestion() << std::endl;
+                std::string answer;
+                std::getline(std::cin, answer);
+                commandOutput = HandleCommand(answer, decks[i-1].DrawCard(decks[i-1].GetCurrent()));
+
+                // handle the Command Output
+                if (commandOutput == 1) {
+                    running = false;
+                    break;
+                }
+                else if (commandOutput == 2) {
+                    Score[i-1]++;
+                }
+                else if (commandOutput == 3) {
+                    goto deck_creation;
+                }
+                else if (commandOutput == 0) {
+                    std::cout << "command executed, now you can give another or your answer" << std::endl;
+                    goto question;
+                }   
+            }
+            // increment the current card index
+            decks[i-1].SetCurrent(decks[i-1].GetCurrent() + 1);
         }
     }
+    // end of game
+    std::cout << "game over" << std::endl;
+    std::cout << "here are the scores" << std::endl;
+    DisplayScore();
+    std::cout << "the winner is" << names[FindWinner(Score)] << std::endl;
+    //rematch ?
+    std::cout << "want a rematch? (yes/no)";
+    std::string rematch;
+    std::getline(std::cin, rematch);
+    if (rematch == "yes") {
+        std::cout << "ok, let's go" << std::endl;
+        RestartGame();
+        goto deck_creation;
+    }
+    else if (rematch == "no") {
+        std::cout << "thanks for playing!" << std::endl;
+    }
+    else {
+        std::cout << "invalid command, exiting game" << std::endl;
+    }
 }
-int GameManager::HandleCommand(const std::string& answer, Card currentCard) const {
+int GameManager::HandleCommand(const std::string& answer, Card currentCard) {
     if (answer == "help") {
         DisplayHelp();
         return 0;
     } else if (answer == "about") {
-        std::cout << "This is a flashcard game made by me, a noob programmer" << std::endl;
-        std::cout << "I hope you enjoy it" << std::endl;
+        DisplayAbout();
         return 0;
     } else if (answer == "score") {
         DisplayScore();
         return 0;
     } else if (answer == "restart") {
-        RestartGame(players);
+        RestartGame();
         return 3;
     } else if (answer == "quit") {
         std::cout << "Thanks for playing!" << std::endl;
@@ -149,7 +190,7 @@ int GameManager::HandleCommand(const std::string& answer, Card currentCard) cons
         return 4;
     } else {
         std::cout << "Invalid command. Type 'help' for a list of commands." << std::endl;
-        return -1;
+        return 0;
     }
 }
 
@@ -167,13 +208,32 @@ void GameManager::DisplayScore() const {
     }
 }
 void GameManager::SkipQuestion() const {
-    
     std::cout << "Question skipped." << std::endl;
+    // i know it's useless but i wanted it anyway
 }
-void GameManager::RestartGame(int n) {
-    for (int i = 0; i < n; i++) {
+void GameManager::RestartGame() {
+    for (int i = 0; i < players; i++) {
         decks[i].SetCurrent(0);
         Score[i] = 0;
     }
     std::cout << "Game restarted." << std::endl;
+}
+int GameManager::FindWinner(const std::vector<int>& scores) const {
+    int maxScore = -1;
+    int winnerIndex = -1;
+    for (int i = 0; i < players; i++) {
+        if (scores[i] > maxScore) {
+            maxScore = scores[i];
+            winnerIndex = i;
+        }
+    }
+    return winnerIndex;
+}
+void GameManager::DisplayAbout() const {
+    std::cout << "[ Mr. KnowItAll ]";
+    std::cout << "this is a flashcard trainer, a trivia game:";
+    std::cout << "you will answer different questions and earn points";
+    std::cout << "who gets the highest score wins";
+    std::cout << "VERSION 1.0";
+    std::cout << "CREATOR: Giuseppe Crescenzi, giusycrescenzi on GitHub" << std::endl;
 }
