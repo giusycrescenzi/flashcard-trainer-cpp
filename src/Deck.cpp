@@ -45,7 +45,7 @@ void Deck::LoadGeniusDeck() {
 Card Deck::DrawCard(int curr) {
     if (curr >= size) {
         std::cerr << "no more cards to draw" << std::endl;
-        return;
+        return Card();
     }
     Card card = cards[curr];
     return card;
