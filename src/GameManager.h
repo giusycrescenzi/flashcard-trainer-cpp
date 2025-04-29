@@ -19,7 +19,7 @@ class GameManager {
         std::vector<Deck> decks;
 
         int GetNumPlayers() const;
-        std::string GameManager::GetPlayerName(int n,const std::string& name) const;
+        std::string GetPlayerName(int n,const std::string& name) const;
         int GetScore(int n, int s) const;
         Deck GetDeck(int n) const;
 
