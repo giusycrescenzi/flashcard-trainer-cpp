@@ -7,7 +7,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-add_executable(flashcard-trainer main.cpp)
+add_executable(flashcard-trainer main.cpp
+    src/GameManager.cpp
+    src/Deck.cpp
+    src/Card.cpp)
 
 add_custom_command(
     TARGET flashcard-trainer POST_BUILD
