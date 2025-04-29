@@ -6,20 +6,34 @@ void Card::LoadCard(std::string filename) {
         std::cerr << "Error opening file: " << filename << std::endl;
         return;
     }
-    std::string line, q, a, c, d_intcast;
-    Card card;
+
+    // Estrai indice casuale della riga da caricare
+    std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
+    std::uniform_int_distribution<int> dist(0, MAX_CARDS - 1);
+    int targetLine = dist(rng);
+
+    std::string line;
+    int currentLine = 0;
     while (std::getline(file, line)) {
-        std::stringstream ss(line);
-        if (std::getline(ss, q, '|') &&
-            std::getline(ss, a, '|') &&
-            std::getline(ss, c, '|') &&
-            std::getline(ss, d_intcast)) { // need to parse the line in the .txt
-            card.question = q;
-            card.answer = a;
-            card.category = c;
-            card.difficulty = static_cast<level>(std::stoi(d_intcast));
-            // now i have a card object with all the data
+        if (currentLine == targetLine) {
+            std::stringstream ss(line);
+            std::string q, a, c, d_intcast;
+
+            if (std::getline(ss, q, '|') &&
+                std::getline(ss, a, '|') &&
+                std::getline(ss, c, '|') &&
+                std::getline(ss, d_intcast)) {
+                
+                this->question = q;
+                this->answer = a;
+                this->category = c;
+                this->difficulty = static_cast<level>(std::stoi(d_intcast));
+            } else {
+                std::cerr << "Failed to parse line: " << line << std::endl;
+            }
+            break;
         }
+        ++currentLine;
     }
     file.close();
 }

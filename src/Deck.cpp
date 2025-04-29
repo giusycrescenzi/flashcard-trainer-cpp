@@ -42,3 +42,11 @@ void Deck::LoadProDeck() {
 void Deck::LoadGeniusDeck() {
     Deck::LoadDeck(0,0,9);
 }
+Card Deck::DrawCard(int curr) {
+    if (curr >= size) {
+        std::cerr << "no more cards to draw" << std::endl;
+        return;
+    }
+    Card card = cards[curr];
+    return card;
+}

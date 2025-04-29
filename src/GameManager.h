@@ -27,11 +27,18 @@ class GameManager {
         
 
         // all commands will be private, calls will be handled at run time by run method
-        bool HandleCommand(const std::string& answer, Deck deck) const;
+        // commands give different return values
+        // 0 = command executed
+        // 1 = quit
+        // -1 = invalid command
+        // 2 = add a point (the answer was right)
+        // 3 = restart game
+        // 4 = skip question
+        int HandleCommand(const std::string& answer, Card currentCard) const;
         void DisplayHelp() const;
         void DisplayScore() const;
         void SkipQuestion() const;
-        void restart(int n, std::vector<Deck>& decks);
+        void RestartGame(int n);
 };
 
 #endif //GAMEMANAGER_H

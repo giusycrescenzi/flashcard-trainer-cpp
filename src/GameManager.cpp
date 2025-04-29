@@ -21,10 +21,17 @@ std::string GameManager::GetPlayerName(int n,const std::string& name) const {
 Deck GameManager::GetDeck(int n) const {
     return decks[n];
 }
+void GameManager::SetScore(int n, int s) {
+    Score[n] = s;
+}
+int GameManager::GetScore(int n, int s) const {
+    return Score[n];
+}
 
 void GameManager::run() {
     bool running = true;
     // first thing is getting every player info in the manager
+    {
     do {
         std::cout << "insert number of players ";
         std::cin >> players;
@@ -44,6 +51,7 @@ void GameManager::run() {
             std::cout << name << " added" << std::endl;
             SetPlayerName (i, name);
         }
+    }
     }
     // generate the desired deck of cards for every player
     deck_creation: {
@@ -106,20 +114,45 @@ void GameManager::run() {
     }
     // now the gameflow
     while (running) {
+        int commandOutput = 0;
         for (int i = 1; i <= players; i++) {
             std::cout << "player " << i << " turn" << std::endl;
             std::cout << decks[i-1].DrawCard().getQuestion() << std::endl;
             std::string answer;
             std::getline(std::cin, answer);
+            commandOutput = HandleCommand(answer, decks[i-1].DrawCard());
         }
     }
 }
-bool GameManager::HandleCommand(const std::string& answer, Deck deck) const {
+int GameManager::HandleCommand(const std::string& answer, Card currentCard) const {
     if (answer == "help") {
         DisplayHelp();
-        return false;
+        return 0;
+    } else if (answer == "about") {
+        std::cout << "This is a flashcard game made by me, a noob programmer" << std::endl;
+        std::cout << "I hope you enjoy it" << std::endl;
+        return 0;
+    } else if (answer == "score") {
+        DisplayScore();
+        return 0;
+    } else if (answer == "restart") {
+        RestartGame(players);
+        return 3;
+    } else if (answer == "quit") {
+        std::cout << "Thanks for playing!" << std::endl;
+        return 1;
+    } else if (answer == currentCard.getAnswer()) {
+        std::cout << "correct!" << std::endl;
+        return 2;
+    } else if (answer == "skip") {
+        SkipQuestion();
+        return 4;
+    } else {
+        std::cout << "Invalid command. Type 'help' for a list of commands." << std::endl;
+        return -1;
     }
 }
+
 void GameManager::DisplayHelp() const{
     std::cout << "[ Commands ]" << std::endl;
     std::cout << "help          if you need to see this again"<< std::endl;
@@ -130,6 +163,17 @@ void GameManager::DisplayHelp() const{
 }
 void GameManager::DisplayScore() const {
     for (int i = 0; i < players; i++) {
-        std::cout<<names[i]<<": ";
+        std::cout<<names[i] << ": " << Score[i] << std::endl;
     }
+}
+void GameManager::SkipQuestion() const {
+    
+    std::cout << "Question skipped." << std::endl;
+}
+void GameManager::RestartGame(int n) {
+    for (int i = 0; i < n; i++) {
+        decks[i].SetCurrent(0);
+        Score[i] = 0;
+    }
+    std::cout << "Game restarted." << std::endl;
 }

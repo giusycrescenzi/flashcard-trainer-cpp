@@ -5,10 +5,13 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <random>
+#include <ctime>
 
 #define NOOB 1
 #define PRO 2
 #define GENIUS 3
+#define MAX_CARDS 30
 typedef unsigned short int level;
 
 class Card {

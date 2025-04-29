@@ -21,7 +21,7 @@ class Deck {
         void LoadProDeck();
         void LoadGeniusDeck();
 
-        Card DrawCard();
+        Card DrawCard(int curr);
     private:
         std::vector<Card> cards;
         std::size_t size;
