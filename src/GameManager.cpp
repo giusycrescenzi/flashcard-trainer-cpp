@@ -9,11 +9,16 @@ void GameManager::SetNumPlayers(int p) {
 int GameManager::GetNumPlayers() const {
     return players;
 }
-void GameManager::SetPlayerName(int n,const std::string& name) {
+void GameManager::SetPlayerName(const std::string& name) {
     names.push_back(name);
 }
-std::string GameManager::GetPlayerName(int n,const std::string& name) const {
-    return names[n];
+std::string GameManager::GetPlayerName(int n) const {
+    if (n >= 0 && n < names.size()) {
+        return names[n];
+    } else {
+        std::cout << "Invalid player index." << std::endl;
+        return "";
+    }
 }
 Deck GameManager::GetDeck(int n) const {
     return decks[n];
@@ -28,13 +33,17 @@ int GameManager::GetScore(int n, int s) const {
 void GameManager::run() {
     bool running = true;
     // first thing is getting every player info in the manager
-    {
     do {
-        std::cout << "insert number of players ";
+        std::cout << "Insert number of players: ";
         std::cin >> players;
-    } while (players < 1);
+        if (std::cin.fail()) {
+            std::cout << "Invalid input. Please enter an integer." << std::endl;
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(10000, '\n'); // Ignore any remaining input
+        }
+    } while (players < 1 || std::cin.fail());
     if (players == 1) {
-        SetPlayerName(0, "You");
+        SetPlayerName("You");
         SetScore(0, 0);
         std::cout << "There we go, best of luck pal" << std::endl;
     }
@@ -43,23 +52,22 @@ void GameManager::run() {
         for (int i = 0; i < players; i++) {
             SetScore(i, 0);
             std::string name;
-            std::cout << "player number " << i+1 << " insert your name";
+            std::cout << "player " << i+1 << " insert your name";
             std::getline (std::cin, name);
             std::cout << name << " added" << std::endl;
-            SetPlayerName (i, name);
+            SetPlayerName (name);
         }
-    }
     }
     // generate the desired deck of cards for every player
     deck_creation: {
         std::string inputcommand;
-        std::cout << "There will be a deck of flashcards for each of you:";
-        std::cout << "(please select the game mode using one the following commands)";
-        std::cout << "easy      9 no-brainer questions";
-        std::cout << "medium    9 question for normal-sized brains";
-        std::cout << "hard      9 nearly impossible questions";
-        std::cout << "go        4 easy, 3 medium and 2 hard questions";
-        std::cout << "custom    choose yourself the composition of your decks";
+        std::cout << "There will be a deck of flashcards for each of you:" << std::endl;
+        std::cout << "(please select the game mode using one the following commands)"<< std::endl;
+        std::cout << "easy      9 no-brainer questions"<< std::endl;
+        std::cout << "medium    9 question for normal-sized brains"<< std::endl;
+        std::cout << "hard      9 nearly impossible questions"<< std::endl;
+        std::cout << "go        4 easy, 3 medium and 2 hard questions"<< std::endl;
+        std::cout << "custom    choose yourself the composition of your decks"<< std::endl;
         std::getline(std::cin, inputcommand);
         if (inputcommand == "easy") {
             for (int i = 0; i < players; i++) {
@@ -233,10 +241,10 @@ int GameManager::FindWinner(const std::vector<int>& scores) const {
     return winnerIndex;
 }
 void GameManager::DisplayAbout() const {
-    std::cout << "[ Mr. KnowItAll ]";
-    std::cout << "this is a flashcard trainer, a trivia game:";
-    std::cout << "you will answer different questions and earn points";
-    std::cout << "who gets the highest score wins";
-    std::cout << "VERSION 1.0";
+    std::cout << "[ Mr. KnowItAll ]" << std::endl;
+    std::cout << "this is a flashcard trainer, a trivia game:" << std::endl;
+    std::cout << "you will answer different questions and earn points" << std::endl;
+    std::cout << "who gets the highest score wins" << std::endl;
+    std::cout << "VERSION 1.0" << std::endl;
     std::cout << "CREATOR: Giuseppe Crescenzi, giusycrescenzi on GitHub" << std::endl;
 }

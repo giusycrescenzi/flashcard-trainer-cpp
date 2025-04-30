@@ -9,7 +9,7 @@ class GameManager {
         void run();
 
         void SetNumPlayers(int p);
-        void SetPlayerName(int n,const std::string& name); //NB takes the player index
+        void SetPlayerName(const std::string& name);
         void SetScore(int n, int s);
     private:
         int players;
@@ -18,7 +18,7 @@ class GameManager {
         std::vector<Deck> decks;
 
         int GetNumPlayers() const;
-        std::string GetPlayerName(int n,const std::string& name) const;
+        std::string GetPlayerName(int n) const;
         int GetScore(int n, int s) const;
         Deck GetDeck(int n) const;
 
