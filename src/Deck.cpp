@@ -27,7 +27,7 @@ void Deck::LoadDeck(int easy_questions, int medium_questions, int hard_questions
         else {
             card.LoadCard("hard.txt");
         }
-        cards[i] = card;
+        cards.push_back(card);
     }
 }
 void Deck::LoadBasicDeck() {
@@ -47,6 +47,5 @@ Card Deck::DrawCard(int curr) {
         std::cerr << "no more cards to draw" << std::endl;
         return Card();
     }
-    Card card = cards[curr];
-    return card;
+    return cards[curr];
 }
