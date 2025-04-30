@@ -1,5 +1,8 @@
 #include "GameManager.h"
 
+GameManager::GameManager() : players(0) {
+}
+
 void GameManager::SetNumPlayers(int p) {
     players = p;
 }

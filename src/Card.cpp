@@ -1,5 +1,8 @@
 #include "Card.h"
 
+Card::Card() : question(""), answer(""), category(""), difficulty(0) {
+}
+
 void Card::LoadCard(std::string filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {

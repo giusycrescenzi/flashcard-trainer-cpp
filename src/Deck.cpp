@@ -1,5 +1,8 @@
 #include "Deck.h"
 
+Deck::Deck() : size(0), currentCardIndex(0) {
+    cards.reserve(MAX_CARDS);
+}
 void Deck::SetSize(size_t s) {
     size = s;
 }
