@@ -7,7 +7,7 @@ int GameManager::GetNumPlayers() const {
     return players;
 }
 void GameManager::SetPlayerName(int n,const std::string& name) {
-    names[n] = name;
+    names.push_back(name);
 }
 std::string GameManager::GetPlayerName(int n,const std::string& name) const {
     return names[n];
@@ -16,7 +16,7 @@ Deck GameManager::GetDeck(int n) const {
     return decks[n];
 }
 void GameManager::SetScore(int n, int s) {
-    Score[n] = s;
+    Score.push_back(s);
 }
 int GameManager::GetScore(int n, int s) const {
     return Score[n];
@@ -62,28 +62,28 @@ void GameManager::run() {
             for (int i = 0; i < players; i++) {
                 Deck deck;
                 deck.LoadNoobDeck();
-                decks[i] = deck;
+                decks.push_back(deck);
             }
         }
         else if (inputcommand == "medium") {
             for (int i = 0; i < players; i++) {
                 Deck deck;
                 deck.LoadProDeck();
-                decks[i] = deck;
+                decks.push_back(deck);
             }
         }
         else if (inputcommand == "hard") {
             for (int i = 0; i < players; i++) {
                 Deck deck;
                 deck.LoadGeniusDeck();
-                decks[i] = deck;
+                decks.push_back(deck);
             }
         }
         else if (inputcommand == "go") {
             for (int i = 0; i < players; i++) {
                 Deck deck;
                 deck.LoadBasicDeck();
-                decks[i] = deck;
+                decks.push_back(deck);
             }
         }
         else if (inputcommand == "custom") {
@@ -98,7 +98,7 @@ void GameManager::run() {
             for (int i = 0; i < players; i++) {
                 Deck deck;
                 deck.LoadDeck(e, m, h);
-                decks[i] = deck;
+                decks.push_back(deck);
             }
         }
         else {
