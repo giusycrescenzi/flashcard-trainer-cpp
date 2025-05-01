@@ -1,0 +1,3 @@
+/Users/giuseppecrescenzi/cli-cpp/flashcard-trainer/build/CMakeFiles/flashcard-trainer.dir
+/Users/giuseppecrescenzi/cli-cpp/flashcard-trainer/build/CMakeFiles/edit_cache.dir
+/Users/giuseppecrescenzi/cli-cpp/flashcard-trainer/build/CMakeFiles/rebuild_cache.dir

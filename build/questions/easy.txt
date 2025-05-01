@@ -1,0 +1,33 @@
+Qual è la capitale della Svizzera?|Berna|Geografia|1
+Triangolo equilatero ABC, che angoli forma la mediana in A? (scrivere solo il numero in gradi)|30|Matematica|1
+Il colore predominante della bandiera della Turchia|rosso|Geografia|1
+Qual è la capitale della Spagna?|Madrid|Geografia|1
+In che continente si trova l'Argentina?|Sud America|Geografia|1
+Qual è il fiume più lungo del mondo?|Nilo|Geografia|1
+In quale nazione si trova il monte Fuji?|Giappone|Geografia|1
+Quale oceano bagna le coste del Portogallo?|Oceano Atlantico|Geografia|1
+Quanto fa 7 x 8?|56|Matematica|1
+Qual è la radice quadrata di 64?|8|Matematica|1
+Qual è l’area di un quadrato di lato 5 cm?|25|Matematica|1
+Quanto vale π approssimato a due cifre decimali?|3.14|Matematica|1
+Quanto fa 100 diviso 4?|25|Matematica|1
+In che anno è iniziata la Seconda Guerra Mondiale?|1939|Storia|1
+Chi era il primo imperatore romano?|Augusto|Storia|1
+Quale civiltà ha costruito le piramidi?|Egizia|Storia|1
+Chi ha scoperto l'America?|Cristoforo Colombo|Storia|1
+In che anno è caduto l'Impero Romano d'Occidente?|476|Storia|1
+Qual è il simbolo chimico dell'acqua?|H2O|Chimica|1
+Qual è il numero atomico dell’ossigeno?|8|Chimica|1
+Di che colore è il litmus in presenza di acido?|Rosso|Chimica|1
+Quale pianeta è noto come il pianeta rosso?|Marte|Astronomia|1
+Quale gas respiriamo per vivere?|Ossigeno|Biologia|1
+Quanti giocatori ha una squadra di calcio in campo?|11|Sport|1
+In quale sport si usa la racchetta e la pallina gialla?|Tennis|Sport|1
+Chi ha vinto il Mondiale di calcio 2006?|Italia|Sport|1
+In quale sport si segnano “canestri”?|Basket|Sport|1
+Quante ruote ha una bicicletta?|2|Sport|1
+Qual è la lingua ufficiale del Brasile?|Portoghese|Lingua|1
+Chi ha scritto “La Divina Commedia”?|Dante Alighieri|Letteratura|1
+Qual è l'unità di misura della corrente elettrica?|Ampere|Fisica|1
+Che colore si ottiene mescolando blu e giallo?|Verde|Arte|1
+In quale città si trova il Colosseo?|Roma|Geografia|1
