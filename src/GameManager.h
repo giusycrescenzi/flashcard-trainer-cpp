@@ -10,7 +10,7 @@ class GameManager {
 
         void SetNumPlayers(int p);
         void SetPlayerName(const std::string& name);
-        void SetScore(int n, int s);
+        void SetScore(int s);
     private:
         int players;
         std::vector<int> Score;

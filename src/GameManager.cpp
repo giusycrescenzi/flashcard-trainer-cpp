@@ -23,7 +23,7 @@ std::string GameManager::GetPlayerName(int n) const {
 Deck GameManager::GetDeck(int n) const {
     return decks[n];
 }
-void GameManager::SetScore(int n, int s) {
+void GameManager::SetScore(int s) {
     Score.push_back(s);
 }
 int GameManager::GetScore(int n, int s) const {
@@ -31,7 +31,6 @@ int GameManager::GetScore(int n, int s) const {
 }
 
 void GameManager::run() {
-    bool running = true;
     // first thing is getting every player info in the manager
     do {
         std::cout << "Insert number of players: ";
@@ -44,19 +43,19 @@ void GameManager::run() {
     } while (players < 1 || std::cin.fail());
     if (players == 1) {
         SetPlayerName("You");
-        SetScore(0, 0);
-        std::cout << "There we go, best of luck pal" << std::endl;
+        SetScore(0);
+        std::cout << "There you go, best of luck pal" << std::endl;
     }
     else {
-        std::cout << "game for " << players << " initialized, good luck";
         for (int i = 0; i < players; i++) {
-            SetScore(i, 0);
+            SetScore(0);
             std::string name;
             std::cout << "player " << i+1 << " insert your name";
             std::getline (std::cin, name);
             std::cout << name << " added" << std::endl;
             SetPlayerName (name);
         }
+        std::cout << "game for " << players << " initialized, good luck";
     }
     // generate the desired deck of cards for every player
     deck_creation: {
@@ -118,14 +117,13 @@ void GameManager::run() {
         }
     }
     // now the gameflow
-    while (running) {
+    while (true) {
         // check if the player has finished his deck
         int commandOutput = 0;
         for (int i = 1; i <= players; i++) {
             // check if the player has finished his deck
             if (decks[i-1].GetCurrent() >= decks[i-1].GetSize()) {
                 std::cout << "there are no more cards" << std::endl;
-                running = false;
                 break;
             }
             //player turn
@@ -138,7 +136,6 @@ void GameManager::run() {
 
                 // handle the Command Output
                 if (commandOutput == 1) {
-                    running = false;
                     break;
                 }
                 else if (commandOutput == 2) {
@@ -224,7 +221,8 @@ void GameManager::SkipQuestion() const {
 }
 void GameManager::RestartGame() {
     for (int i = 0; i < players; i++) {
-        decks[i].SetCurrent(0);
+        decks.clear();
+        
         Score[i] = 0;
     }
     std::cout << "Game restarted." << std::endl;
