@@ -13,7 +13,8 @@ add_executable(flashcard-trainer main.cpp
     src/Card.cpp)
 
 add_custom_command(
-    TARGET flashcard-trainer POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/questions $<TARGET_FILE_DIR:flashcard-trainer>/questions
+        TARGET flashcard-trainer POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/questions
+        $<TARGET_FILE_DIR:flashcard-trainer>/questions
 )

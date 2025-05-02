@@ -38,8 +38,9 @@ void GameManager::run() {
         if (std::cin.fail()) {
             std::cout << "Invalid input. Please enter an integer." << std::endl;
             std::cin.clear(); // Clear the error flag
-            std::cin.ignore(10000, '\n'); // Ignore any remaining input
         }
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // pulisce il buffer dalla newline
+        ClearScreen(); // 🧽🧼
     } while (players < 1 || std::cin.fail());
     if (players == 1) {
         SetPlayerName("You");
@@ -50,12 +51,13 @@ void GameManager::run() {
         for (int i = 0; i < players; i++) {
             SetScore(0);
             std::string name;
-            std::cout << "player " << i+1 << " insert your name";
+            std::cout << "player " << i+1 << " insert your name ";
             std::getline (std::cin, name);
             std::cout << name << " added" << std::endl;
             SetPlayerName (name);
         }
-        std::cout << "game for " << players << " initialized, good luck";
+        ClearScreen(); // 🧽🧼
+        std::cout << "game for " << players << " initialized, good luck" << std::endl;
     }
     // generate the desired deck of cards for every player
     deck_creation: {
@@ -120,26 +122,29 @@ void GameManager::run() {
     while (true) {
         // check if the player has finished his deck
         int commandOutput = 0;
-        for (int i = 1; i <= players; i++) {
+        for (int i = 1; i <= decks[0].GetSize(); i++) {
+            int idx = abs(i%2-1); // per alternare i valori tra 0 e 1
+            // di sicuro c'è un modo più canonnico e ottimizzato ma devo cercarlo
+            ClearScreen(); // 🧽🧼
             // check if the player has finished his deck
-            if (decks[i-1].GetCurrent() >= decks[i-1].GetSize()) {
+            if (decks[idx].GetCurrent() >= decks[idx].GetSize()) {
                 std::cout << "there are no more cards" << std::endl;
                 break;
             }
             //player turn
-            std::cout << "player " << i << " turn" << std::endl;
+            std::cout << names[idx] << "'s turn" << std::endl;
             question:{
-                std::cout << decks[i-1].DrawCard(decks[i-1].GetCurrent()).getQuestion() << std::endl;
+                std::cout << decks[idx].DrawCard(decks[idx].GetCurrent()).getQuestion() << std::endl;
                 std::string answer;
                 std::getline(std::cin, answer);
-                commandOutput = HandleCommand(answer, decks[i-1].DrawCard(decks[i-1].GetCurrent()));
+                commandOutput = HandleCommand(answer, decks[idx].DrawCard(decks[idx].GetCurrent()));
 
                 // handle the Command Output
                 if (commandOutput == 1) {
                     break;
                 }
-                else if (commandOutput == 2) {
-                    Score[i-1]++;
+                if (commandOutput == 2) {
+                    Score[idx]++;
                 }
                 else if (commandOutput == 3) {
                     goto deck_creation;
@@ -147,27 +152,30 @@ void GameManager::run() {
                 else if (commandOutput == 0) {
                     std::cout << "command executed, now you can give another or your answer" << std::endl;
                     goto question;
-                }   
+                }
             }
             // increment the current card index
-            decks[i-1].SetCurrent(decks[i-1].GetCurrent() + 1);
+            decks[idx].SetCurrent(decks[idx].GetCurrent() + 1);
         }
+        break;
     }
     // end of game
     std::cout << "game over" << std::endl;
     std::cout << "here are the scores" << std::endl;
     DisplayScore();
     std::cout << "the winner is" << names[FindWinner(Score)] << std::endl;
+    ClearScreen(); // 🧽🧼
     //rematch ?
     std::cout << "want a rematch? (yes/no)";
     std::string rematch;
     std::getline(std::cin, rematch);
     if (rematch == "yes") {
         std::cout << "ok, let's go" << std::endl;
+        ClearScreen(); // 🧽🧼
         RestartGame();
         goto deck_creation;
     }
-    else if (rematch == "no") {
+    if (rematch == "no") {
         std::cout << "thanks for playing!" << std::endl;
     }
     else {
@@ -178,31 +186,30 @@ int GameManager::HandleCommand(const std::string& answer, Card currentCard) {
     if (answer == "help") {
         DisplayHelp();
         return 0;
-    } else if (answer == "about") {
+    } if (answer == "about") {
         DisplayAbout();
         return 0;
-    } else if (answer == "score") {
+    } if (answer == "score") {
         DisplayScore();
         return 0;
-    } else if (answer == "restart") {
+    } if (answer == "restart") {
         RestartGame();
         return 3;
-    } else if (answer == "quit") {
+    } if (answer == "quit") {
         std::cout << "Thanks for playing!" << std::endl;
         return 1;
-    } else if (answer == currentCard.getAnswer()) {
+    } if (answer == currentCard.getAnswer()) {
         std::cout << "correct!" << std::endl;
         return 2;
-    } else if (answer == "skip") {
+    } if (answer == "skip") {
         SkipQuestion();
         return 4;
-    } else {
-        std::cout << "Invalid command. Type 'help' for a list of commands." << std::endl;
-        return 0;
     }
+        std::cout << "wrong answer" << std::endl;
+        return 4;
 }
 
-void GameManager::DisplayHelp() const{
+void GameManager::DisplayHelp() {
     std::cout << "[ Commands ]" << std::endl;
     std::cout << "help          if you need to see this again"<< std::endl;
     std::cout << "about         show app info" << std::endl;
@@ -238,11 +245,24 @@ int GameManager::FindWinner(const std::vector<int>& scores) const {
     }
     return winnerIndex;
 }
-void GameManager::DisplayAbout() const {
+void GameManager::DisplayAbout() {
     std::cout << "[ Mr. KnowItAll ]" << std::endl;
     std::cout << "this is a flashcard trainer, a trivia game:" << std::endl;
     std::cout << "you will answer different questions and earn points" << std::endl;
     std::cout << "who gets the highest score wins" << std::endl;
     std::cout << "VERSION 1.0" << std::endl;
     std::cout << "CREATOR: Giuseppe Crescenzi, giusycrescenzi on GitHub" << std::endl;
+}
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+void GameManager::ClearScreen() {
+    std::this_thread::sleep_for(std::chrono::milliseconds(1500)); // wait
+
+#ifdef _WIN32
+    std::system("cls");
+#else
+    std::system("clear");
+#endif
 }

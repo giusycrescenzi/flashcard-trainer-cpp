@@ -3,8 +3,6 @@
 
 #include "Card.h"
 #include <vector>
-#include <random>
-#include <algorithm>
 
 class Deck {
     public:
@@ -12,10 +10,10 @@ class Deck {
 
         void SetSize(size_t s);
         void SetCurrent(size_t c);
-        size_t GetSize() const;
-        size_t GetCurrent() const;
+        [[nodiscard]] size_t GetSize() const;
+        [[nodiscard]] size_t GetCurrent() const;
 
-        void LoadDeck(int easy_questions, int medium_questions, int hard_questions);
+        void LoadDeck(int easy_questions,int medium_questions,int hard_questions);
         void LoadBasicDeck(); // 4noob-3pro-2genius
         void LoadNoobDeck();
         void LoadProDeck();

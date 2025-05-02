@@ -13,7 +13,7 @@ Quanto vale π approssimato a due cifre decimali?|3.14|Matematica|1
 Quanto fa 100 diviso 4?|25|Matematica|1
 In che anno è iniziata la Seconda Guerra Mondiale?|1939|Storia|1
 Chi era il primo imperatore romano?|Augusto|Storia|1
-Quale civiltà ha costruito le piramidi?|Egizia|Storia|1
+Quale civiltà ha costruito le piramidi?|Egizi|Storia|1
 Chi ha scoperto l'America?|Cristoforo Colombo|Storia|1
 In che anno è caduto l'Impero Romano d'Occidente?|476|Storia|1
 Qual è il simbolo chimico dell'acqua?|H2O|Chimica|1

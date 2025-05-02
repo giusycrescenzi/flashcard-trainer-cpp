@@ -1,9 +1,8 @@
 #include "Card.h"
 
-Card::Card() : question(""), answer(""), category(""), difficulty(0) {
-}
+Card::Card() = default;
 
-void Card::LoadCard(std::string filename) {
+void Card::LoadCard(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Error opening file: " << filename << std::endl;
@@ -11,9 +10,9 @@ void Card::LoadCard(std::string filename) {
     }
 
     // Estrai indice casuale della riga da caricare
-    std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
-    std::uniform_int_distribution<int> dist(0, MAX_CARDS - 1);
-    int targetLine = dist(rng);
+    static std::mt19937 rng(std::random_device{}()); // generatore statico, una volta sola
+    std::uniform_int_distribution dist(0, MAX_CARDS - 1);
+    int targetLine = dist(rng); // diverso ad ogni chiamata
 
     std::string line;
     int currentLine = 0;

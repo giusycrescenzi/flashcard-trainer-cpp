@@ -17,10 +17,10 @@ class GameManager {
         std::vector<std::string> names;
         std::vector<Deck> decks;
 
-        int GetNumPlayers() const;
-        std::string GetPlayerName(int n) const;
-        int GetScore(int n, int s) const;
-        Deck GetDeck(int n) const;
+        [[nodiscard]]int GetNumPlayers() const;
+        [[nodiscard]]std::string GetPlayerName(int n) const;
+        [[nodiscard]]int GetScore(int n, int s) const;
+        [[nodiscard]]Deck GetDeck(int n) const;
 
         
 
@@ -32,12 +32,14 @@ class GameManager {
         // 3 = restart game
         // 4 = skip question
         int HandleCommand(const std::string& answer, Card currentCard);
-        void DisplayHelp() const;
+        static void DisplayHelp() ;
         void DisplayScore() const;
         void SkipQuestion() const;
         void RestartGame();
+        [[nodiscard("you need it to declare the winner")]]
         int FindWinner(const std::vector<int>& scores) const;
-        void DisplayAbout() const;
+        static void DisplayAbout() ;
+        static void ClearScreen();
 };
 
 #endif //GAMEMANAGER_H
