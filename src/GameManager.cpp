@@ -229,8 +229,7 @@ void GameManager::SkipQuestion() const {
 void GameManager::RestartGame() {
     for (int i = 0; i < players; i++) {
         decks.clear();
-        
-        Score[i] = 0;
+                 Score[i] = 0;
     }
     std::cout << "Game restarted." << std::endl;
 }
@@ -258,7 +257,7 @@ void GameManager::DisplayAbout() {
 #include <thread>
 
 void GameManager::ClearScreen() {
-    std::this_thread::sleep_for(std::chrono::milliseconds(1500)); // wait
+    std::this_thread::sleep_for(std::chrono::milliseconds(2500)); // wait
 
 #ifdef _WIN32
     std::system("cls");
